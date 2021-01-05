@@ -27,7 +27,7 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+       // View root = inflater.inflate(R.layout.fragment_home, container, false);
 
 
         ArrayList<Recette> alRecette=new ArrayList<Recette>();
@@ -35,11 +35,13 @@ public class HomeFragment extends Fragment {
         //l'adapter du recycler view
         final ListeRecetteAdapter sa = new ListeRecetteAdapter(alRecette);
 
+        View root = inflater.inflate(R.layout.fragment_home, container, false);
+
         //le recycler view
-        final RecyclerView recyclerViewListeRecette = .findViewById(R.id.listeRecette);
+        final RecyclerView recyclerViewListeRecette = root.findViewById(R.id.listeRecette);
         recyclerViewListeRecette.setHasFixedSize(true);
-        LinearLayoutManager layoutManagerSport = new LinearLayoutManager(this);
-        recyclerViewListeRecette.setLayoutManager(layoutManagerSport);
+        LinearLayoutManager layoutManagerListeRecette = new LinearLayoutManager(container.getContext());
+        recyclerViewListeRecette.setLayoutManager(layoutManagerListeRecette);
         recyclerViewListeRecette.setAdapter(sa);
 
         return root;
