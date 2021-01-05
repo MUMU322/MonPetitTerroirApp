@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="customGradientStart" format="reference" />
+    <attr name="customGradientMiddle" format="reference" />
+    <attr name="customGradientEnd" format="reference" />
+</resources>

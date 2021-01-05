@@ -6,17 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".ui.dashboard.DashboardFragment">
 
-    <!--
-    Ecran de la liste des recettes
-    -->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listeRecette"
-        android:layout_centerHorizontal="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
         android:scrollbars="vertical"
-        ></androidx.recyclerview.widget.RecyclerView>
+        tools:itemCount="4"
+        tools:listitem="@layout/liste_recette"></androidx.recyclerview.widget.RecyclerView>
 
 
 </RelativeLayout>

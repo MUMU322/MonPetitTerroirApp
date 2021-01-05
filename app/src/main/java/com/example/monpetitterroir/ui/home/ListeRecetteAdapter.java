@@ -1,17 +1,23 @@
 package com.example.monpetitterroir.ui.home;
 
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.monpetitterroir.R;
 import com.example.monpetitterroir.model.Recette;
+import com.example.monpetitterroir.model.Recipe;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListeRecetteAdapter extends RecyclerView.Adapter<ListeRecetteAdapter.ListeRecetteViewHolder> {
 
@@ -19,14 +25,14 @@ public class ListeRecetteAdapter extends RecyclerView.Adapter<ListeRecetteAdapte
     /**
      * L'arrayList des recettes proposé
      */
-    private ArrayList<Recette> listeRecette;
+    private List<Recipe> listeRecette;
 
     /**
      * Constructeur de l'adapteur
      * @param al
      *          l'arraylist des recettes
      */
-    public ListeRecetteAdapter(ArrayList<Recette> al){
+    public ListeRecetteAdapter(ArrayList<Recipe> al){
         this.listeRecette=al;
     }
 
@@ -57,13 +63,23 @@ public class ListeRecetteAdapter extends RecyclerView.Adapter<ListeRecetteAdapte
      */
     @Override
     public void onBindViewHolder(@NonNull ListeRecetteAdapter.ListeRecetteViewHolder holder, int position) {
-        holder.textViewTitreRecette.setText(this.listeRecette.get(position).getTitre());
-        holder.textViewDescription.setText(this.listeRecette.get(position).getDescription());
+        if(listeRecette.get(position) != null){
+            Log.i("MICHEL2", listeRecette.get(position).getTitle());
+            holder.textViewTitreRecette.setText(this.listeRecette.get(position).getTitle());
+            Glide.with(holder.itemView).load(listeRecette.get(position).getImage()).into(holder.imageViewRecette);
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Intent myItent = new Intent(this, HomeF)
+                }
+            });
+        }
     }
 
     /**
      * methode getItemCount
-     * @return la taille de la listes des sports
+     * @return la taille de la listes des recettes
      */
     @Override
     public int getItemCount() {
@@ -71,7 +87,10 @@ public class ListeRecetteAdapter extends RecyclerView.Adapter<ListeRecetteAdapte
     }
 
 
-
+    public void refreshList(List<Recipe> recipeList){
+        this.listeRecette = recipeList;
+        notifyDataSetChanged();
+    }
 
 
     /**
@@ -88,6 +107,8 @@ public class ListeRecetteAdapter extends RecyclerView.Adapter<ListeRecetteAdapte
          */
         public TextView textViewDescription;
 
+        public ImageView imageViewRecette;
+
 
 
         /**
@@ -97,8 +118,8 @@ public class ListeRecetteAdapter extends RecyclerView.Adapter<ListeRecetteAdapte
          */
         public ListeRecetteViewHolder(View v) {
             super(v);
-            textViewTitreRecette =  v.findViewById(R.id.titreRecette);
-            textViewDescription= v.findViewById(R.id.descriptionRecette);
+            textViewTitreRecette =  v.findViewById(R.id.recipeTitle);
+            imageViewRecette = v.findViewById(R.id.recipeImage);
 
         }
 
