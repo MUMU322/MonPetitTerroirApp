@@ -34,6 +34,8 @@ import static retrofit2.Response.error;
 
 
 //API Key: e94f7441d6e640bda8d8ba8f19242506
+
+//API Key 2 : e94f7441d6e640bda8d8ba8f19242506
 /**
  * Classe correspondant à l'affichage d'accueil (la liste des recettes)
  */
@@ -43,10 +45,8 @@ public class HomeFragment extends Fragment {
      */
     public FragmentHomeBinding binding;
 
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
 
         this.binding = FragmentHomeBinding.inflate(inflater, container, false);
 
@@ -54,7 +54,6 @@ public class HomeFragment extends Fragment {
         RecyclerView recyclerViewListeRecette = binding.listeRecette;
         LinearLayoutManager layoutManagerListeRecette = new LinearLayoutManager(container.getContext());
         recyclerViewListeRecette.setLayoutManager(layoutManagerListeRecette);
-
 
         //l'adapter du recycler view
         ListeRecetteAdapter myAdapter = new ListeRecetteAdapter(new ArrayList<Recipe>());
@@ -68,8 +67,8 @@ public class HomeFragment extends Fragment {
                                 public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
 
                                     List<Recipe> maList = response.body();
-                                    Log.i("MICHEL", response.body().toString());
                                     if(maList != null){
+                                        Log.i("MICHEL", response.body().toString());
                                         myAdapter.refreshList(maList);
                                     }
                                 }
@@ -78,13 +77,6 @@ public class HomeFragment extends Fragment {
                                 public void onFailure(Call<List<Recipe>> call, Throwable t) {
                                 }
                             });
-
-
-
-
-//        val call = ServicesBuilder.buildService(RecipeService::class.java)
-//            .recipesList(getString(R.string.apiKey), "apples")
-
         return binding.getRoot();
     }
 }

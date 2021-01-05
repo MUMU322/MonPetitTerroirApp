@@ -6,11 +6,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavArgs;
 
+import com.bumptech.glide.Glide;
 import com.example.monpetitterroir.R;
 import com.example.monpetitterroir.databinding.FragmentRecetteBinding;
 import com.example.monpetitterroir.model.Recipe;
@@ -18,9 +22,6 @@ import com.example.monpetitterroir.model.RecipeService;
 import com.example.monpetitterroir.model.ServicesBuilder;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,26 +32,34 @@ public class RecetteFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Intent intent = requireActivity().getIntent();
-        String id = intent.getStringExtra("id");
+        binding = FragmentRecetteBinding.inflate(inflater,container,false);
+        return binding.getRoot();
+        //return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        //Log.i("ALO MICHEL",savedInstanceState.getString("uid"));
+        String id = getArguments().get("uid").toString();
+        Log.i("ALO MICHEL 2", id);
 
         Call callRecette = ServicesBuilder.INSTANCE.buildService(RecipeService.class)
                 .recipeDetail(id, getString(R.string.apiKey));
-
-        callRecette.enqueue(new Callback<List<Recipe>>(){
+        callRecette.enqueue(new Callback<Recipe>(){
             @Override
-            public void onResponse(@NotNull Call<List<Recipe>> call, @NotNull Response<List<Recipe>> response) {
-                assert response.body() != null;
+            public void onResponse(@NotNull Call<Recipe> call, @NotNull Response<Recipe> response) {
+                ImageView img = view.findViewById(R.id.imgRecette);
+                TextView title = view.findViewById(R.id.titreRecette);
+                Glide.with(view).load(response.body().getImage()).into(img);
+                title.setText(response.body().getTitle());
                 Log.i("MICHEL RECETTE", response.body().toString());
             }
 
             @Override
-            public void onFailure(@NotNull Call<List<Recipe>> call, @NotNull Throwable t) {
+            public void onFailure(Call<Recipe> call, Throwable t) {
             }
         });
-
-        binding = FragmentRecetteBinding.inflate(inflater,container,false);
-        return binding.getRoot();
-        //return super.onCreateView(inflater, container, savedInstanceState);
     }
 }
