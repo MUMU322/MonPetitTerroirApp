@@ -11,8 +11,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.monpetitterroir.R;
+import com.example.monpetitterroir.model.Recette;
+
+import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
@@ -23,13 +28,20 @@ public class HomeFragment extends Fragment {
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
+
+        ArrayList<Recette> alRecette=new ArrayList<Recette>();
+        alRecette.add(new Recette("Pancake", "la description"));
+        //l'adapter du recycler view
+        final ListeRecetteAdapter sa = new ListeRecetteAdapter(alRecette);
+
+        //le recycler view
+        final RecyclerView recyclerViewListeRecette = .findViewById(R.id.listeRecette);
+        recyclerViewListeRecette.setHasFixedSize(true);
+        LinearLayoutManager layoutManagerSport = new LinearLayoutManager(this);
+        recyclerViewListeRecette.setLayoutManager(layoutManagerSport);
+        recyclerViewListeRecette.setAdapter(sa);
+
         return root;
     }
 }
