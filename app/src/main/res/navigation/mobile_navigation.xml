@@ -29,7 +29,7 @@
 
     <fragment
         android:id="@+id/recetteFragment"
-        android:name="com.example.monpetitterroir.ui.RecetteFragment"
+        android:name="com.example.monpetitterroir.ui.unerecette.RecetteFragment"
         android:label="RecetteFragment"
         tools:layout="@layout/fragment_recette" >
         <argument

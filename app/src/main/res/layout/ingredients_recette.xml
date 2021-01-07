@@ -1,0 +1,4 @@
+<ImageView android:id="@+id/starIcon"
+    android:layout_width="41dp"
+    android:layout_height="44dp"
+    xmlns:android="http://schemas.android.com/apk/res/android" />
