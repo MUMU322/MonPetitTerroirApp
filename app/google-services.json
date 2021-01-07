@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "183970312512",
+    "project_id": "mon-petit-terroir",
+    "storage_bucket": "mon-petit-terroir.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:183970312512:android:c2110cc2c456203ddd4aa5",
+        "android_client_info": {
+          "package_name": "com.example.monpetitterroir"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "183970312512-qer9egjpuhvcb098kni07dk1act8itbf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJAwC9xfxrC0MTQkFMhoq5PVlIHOkpfQU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "183970312512-qer9egjpuhvcb098kni07dk1act8itbf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
