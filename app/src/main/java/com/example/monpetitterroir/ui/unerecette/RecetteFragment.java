@@ -17,7 +17,7 @@ import com.example.monpetitterroir.R;
 import com.example.monpetitterroir.databinding.FragmentRecetteBinding;
 import com.example.monpetitterroir.model.Ingredient;
 import com.example.monpetitterroir.model.Recipe;
-import com.example.monpetitterroir.model.RecipeService;
+import com.example.monpetitterroir.service.RecipeService;
 import com.example.monpetitterroir.model.ServicesBuilder;
 
 import org.jetbrains.annotations.NotNull;

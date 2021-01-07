@@ -1,5 +1,7 @@
-package com.example.monpetitterroir.model
+package com.example.monpetitterroir.service
 
+import com.example.monpetitterroir.model.Ingredient
+import com.example.monpetitterroir.model.Recipe
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

@@ -1,6 +1,5 @@
 package com.example.monpetitterroir.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,13 +11,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavArgs;
 
 import com.bumptech.glide.Glide;
 import com.example.monpetitterroir.R;
 import com.example.monpetitterroir.databinding.FragmentRecetteBinding;
 import com.example.monpetitterroir.model.Recipe;
-import com.example.monpetitterroir.model.RecipeService;
+import com.example.monpetitterroir.service.RecipeService;
 import com.example.monpetitterroir.model.ServicesBuilder;
 
 import org.jetbrains.annotations.NotNull;

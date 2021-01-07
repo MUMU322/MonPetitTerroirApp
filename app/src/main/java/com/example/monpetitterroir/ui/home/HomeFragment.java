@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.monpetitterroir.R;
 import com.example.monpetitterroir.databinding.FragmentHomeBinding;
 import com.example.monpetitterroir.model.Recipe;
-import com.example.monpetitterroir.model.RecipeService;
+import com.example.monpetitterroir.service.RecipeService;
 import com.example.monpetitterroir.model.ServicesBuilder;
 
 import org.jetbrains.annotations.NotNull;
