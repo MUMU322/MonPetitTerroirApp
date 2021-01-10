@@ -1,5 +1,6 @@
 package com.example.monpetitterroir.model
 
+import androidx.annotation.NonNull
 import androidx.annotation.StringRes
 import retrofit2.http.Url
 
@@ -12,11 +13,10 @@ import retrofit2.http.Url
  * @param missedIngredients list of ingredients not in the search, used in the recipe
  */
 data class Recipe(
-        @StringRes val id: Int,
-        @Url val image: String,
-        val title: String,
-        val likes: Int,
-        val usedIngredients: List<Ingredient>,
-        val missedIngredients : List<Ingredient>
+        var id: String,
+        @Url var image: String,
+        var title: String,
+        var likes: Int,
+        val usedIngredients: List<Ingredient>
 ) {
 }

@@ -14,13 +14,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.monpetitterroir.R;
 import com.example.monpetitterroir.databinding.FragmentHomeBinding;
 import com.example.monpetitterroir.model.Recipe;
+import com.example.monpetitterroir.service.FirebaseService;
 import com.example.monpetitterroir.service.RecipeService;
 import com.example.monpetitterroir.model.ServicesBuilder;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import javax.annotation.RegEx;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,11 +39,13 @@ public class HomeFragment extends Fragment {
      * Biding permettant d'éviter de faire des R.id.layout à chaque fois
      */
     public FragmentHomeBinding binding;
+    public FirebaseService service = new FirebaseService();
+    public List<Recipe> recipes = new ArrayList<>();
+    public static final String TAG = "HomeFragment";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         this.binding = FragmentHomeBinding.inflate(inflater, container, false);
-
         // Le recycler view
         RecyclerView recyclerViewListeRecette = binding.listeRecette;
         LinearLayoutManager layoutManagerListeRecette = new LinearLayoutManager(container.getContext());
@@ -48,22 +55,10 @@ public class HomeFragment extends Fragment {
         ListeRecetteAdapter myAdapter = new ListeRecetteAdapter(new ArrayList<>());
         recyclerViewListeRecette.setAdapter(myAdapter);
 
-        // Récupération de la liste des recettes
-        Call callRecette = ServicesBuilder.INSTANCE.buildService(RecipeService.class).recipesList(getString(R.string.apiKey),"apples");
+        this.recipes = this.service.listRecipes();
+        Log.i(TAG, "onCreateView: " + this.recipes.toString());
+        myAdapter.refreshList(this.recipes);
 
-        callRecette.enqueue(new Callback<List<Recipe>>(){
-                                @Override
-                                public void onResponse(@NotNull Call<List<Recipe>> call, @NotNull Response<List<Recipe>> response) {
-                                    List<Recipe> maList = response.body();
-                                    if (maList != null) {
-                                        Log.i("MICHEL", response.body().toString());
-                                        myAdapter.refreshList(maList);
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(@NotNull Call<List<Recipe>> call, @NotNull Throwable t) { }
-                            });
         return binding.getRoot();
     }
 }
