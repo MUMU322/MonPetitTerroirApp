@@ -2,6 +2,7 @@ package com.example.monpetitterroir;
 
 import android.os.Bundle;
 
+import com.example.monpetitterroir.model.Ingredient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
