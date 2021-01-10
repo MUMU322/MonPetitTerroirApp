@@ -9,7 +9,11 @@
         android:id="@+id/navigation_home"
         android:name="com.example.monpetitterroir.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_recetteFragment"
+            app:destination="@id/recetteFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -22,4 +26,14 @@
         android:name="com.example.monpetitterroir.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/recetteFragment"
+        android:name="com.example.monpetitterroir.ui.unerecette.RecetteFragment"
+        android:label="RecetteFragment"
+        tools:layout="@layout/fragment_recette" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
 </navigation>
