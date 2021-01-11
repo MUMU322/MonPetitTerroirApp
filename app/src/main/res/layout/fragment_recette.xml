@@ -1,11 +1,14 @@
 <RelativeLayout android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="10dp">
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/headerRecette"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -68,21 +71,26 @@
                     android:backgroundTint="#ffae42"
                     android:contentDescription="@string/chef"
                     android:scaleType="fitXY" />
+
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
 
 
         <com.google.android.material.card.MaterialCardView
+            app:cardBackgroundColor="@color/lightgrey"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/cardEtapes"
-            android:layout_marginBottom="0dp">
+            android:layout_below="@+id/headerRecette"
+            android:layout_marginTop="0dp">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:layout_below="@id/imgToque"
                 android:id="@+id/recyclerViewIngredients"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="0dp"
                 android:orientation="horizontal" />
+
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
@@ -90,7 +98,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/btnAddToList"
-            android:layout_marginBottom="0dp">
+            android:layout_marginBottom="0dp"
+            >
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewEtapes"

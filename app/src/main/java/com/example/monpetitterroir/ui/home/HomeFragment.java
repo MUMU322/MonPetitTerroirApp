@@ -49,6 +49,7 @@ public class HomeFragment extends Fragment {
         recyclerViewListeRecette.setAdapter(myAdapter);
 
         // Récupération de la liste des recettes
+
         Call callRecette = ServicesBuilder.INSTANCE.buildService(RecipeService.class).recipesList(getString(R.string.apiKey),"apples");
 
         callRecette.enqueue(new Callback<List<Recipe>>(){
