@@ -12,6 +12,8 @@ public class Recipe {
     String likes;
     List<Ingredient> usedIngredients;
 
+    public Recipe() {};
+
     public Recipe(String id, String image, String title, String likes, List<Ingredient> usedIngredients) {
         this.id = id;
         this.image = image;

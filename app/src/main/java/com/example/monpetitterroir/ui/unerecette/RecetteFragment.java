@@ -1,7 +1,6 @@
 package com.example.monpetitterroir.ui.unerecette;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,19 +14,12 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.monpetitterroir.R;
 import com.example.monpetitterroir.databinding.FragmentRecetteBinding;
-import com.example.monpetitterroir.model.Ingredient;
 import com.example.monpetitterroir.model.Recipe;
-import com.example.monpetitterroir.service.RecipeService;
-import com.example.monpetitterroir.model.ServicesBuilder;
-
-import org.jetbrains.annotations.NotNull;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import com.example.monpetitterroir.service.FirebaseService;
 
 public class RecetteFragment extends Fragment {
     public FragmentRecetteBinding binding;
+    public FirebaseService service = new FirebaseService();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -41,35 +33,11 @@ public class RecetteFragment extends Fragment {
 
         // Récupération de l'identifiant
         String id = getArguments().get("uid").toString();
+        Recipe recipe = this.service.getRecipe(id);
+        ImageView img = view.findViewById(R.id.imgRecette);
+        TextView title = view.findViewById(R.id.titreRecette);
+        Glide.with(view).load(recipe.getImage()).into(img);
+        title.setText(recipe.getTitle());
 
-        // Appel API pour récupérer la recette par son identifiant
-        Call<Recipe> callRecette = ServicesBuilder.INSTANCE.buildService(RecipeService.class)
-                .recipeDetail(id, getString(R.string.apiKey));
-        callRecette.enqueue(new Callback<Recipe>(){
-            @Override
-            public void onResponse(@NotNull Call<Recipe> call, @NotNull Response<Recipe> response) {
-                // On affiche les informations sur la recette
-                ImageView img = view.findViewById(R.id.imgRecette);
-                TextView title = view.findViewById(R.id.titreRecette);
-                Glide.with(view).load(response.body().getImage()).into(img);
-                title.setText(response.body().getTitle());
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<Recipe> call, @NotNull Throwable t) { }
-        });
-
-        // Appel API pour récupérer les ingrédients
-        Call<Ingredient> callIngredient = ServicesBuilder.INSTANCE.buildService(RecipeService.class)
-                .ingredientDetail(id, getString(R.string.apiKey));
-        callIngredient.enqueue(new Callback<Ingredient>() {
-            @Override
-            public void onResponse(@NotNull Call<Ingredient> call, @NotNull Response<Ingredient> response) {
-                Log.i("michel ingredient", response.body().toString());
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<Ingredient> call, @NotNull Throwable t) { }
-        });
     }
 }

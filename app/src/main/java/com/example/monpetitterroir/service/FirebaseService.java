@@ -4,21 +4,19 @@ import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.RequiresApi;
-import androidx.lifecycle.LiveData;
 
 import com.example.monpetitterroir.model.Ingredient;
 import com.example.monpetitterroir.model.Recipe;
 import com.example.monpetitterroir.model.Seller;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.model.Document;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class FirebaseService {
 
@@ -54,6 +52,29 @@ public class FirebaseService {
                 });
         });
         return this.recipes;
+    }
+
+    public Recipe getRecipe(String id) {
+        AtomicReference<Recipe> recipe = new AtomicReference<>(new Recipe());
+        db.collection("recipes").document(id).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    List<Ingredient> listIngredient = new ArrayList<>();
+                    Ingredient i = new Ingredient(1, "carrote", "https://cdn1.fermedesaintemarthe.com/I-Autre-26000_1200x1200-carotte-amsterdam-2-ab.net.jpg");
+                    listIngredient.add(i);
+
+                    recipe.set(new Recipe(
+                            document.getId(),
+                            document.getData().get("img").toString(),
+                            document.getData().get("likes").toString(),
+                            document.getData().get("title").toString(),
+                            listIngredient
+                    ));
+                }
+            }
+        });
+        return recipe.get();
     }
 
     public List<Seller> listSellers() {
