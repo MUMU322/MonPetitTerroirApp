@@ -1,9 +1,6 @@
 package com.example.monpetitterroir.service;
 
-import android.os.Build;
 import android.util.Log;
-
-import androidx.annotation.RequiresApi;
 
 import com.example.monpetitterroir.model.Ingredient;
 import com.example.monpetitterroir.model.Recipe;
@@ -15,10 +12,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
-
-import javax.security.auth.callback.Callback;
 
 public class FirebaseService {
 
@@ -27,6 +21,10 @@ public class FirebaseService {
     public List<Recipe> recipes = new ArrayList<>();
     public List<Seller> sellers = new ArrayList<>();
 
+    /**
+     * List all recipes
+     * @param callback
+     */
     public void listRecipes(RecipesCallback callback) {
         db.collection("recipes")
             .get()
@@ -53,12 +51,11 @@ public class FirebaseService {
             });
     }
 
-    public interface RecipesCallback{
-        void onReceive(List<Recipe> recipes);
-    }
-
-    public Recipe getRecipe(String id) {
-        AtomicReference<Recipe> recipe = new AtomicReference<>(new Recipe());
+    /**
+     * Return the recipe with specified ID
+     * @param id
+     */
+    public void getRecipe(String id, RecipeCallback callback) {
         db.collection("recipes").document(id).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
@@ -66,21 +63,22 @@ public class FirebaseService {
                     List<Ingredient> listIngredient = new ArrayList<>();
                     Ingredient i = new Ingredient(1, "carrote", "https://cdn1.fermedesaintemarthe.com/I-Autre-26000_1200x1200-carotte-amsterdam-2-ab.net.jpg");
                     listIngredient.add(i);
-
-                    recipe.set(new Recipe(
-                        document.getId(),
-                        document.getData().get("img").toString(),
-                        document.getData().get("likes").toString(),
-                        document.getData().get("title").toString(),
-                        listIngredient
+                    callback.onReceive(new Recipe(
+                            document.getId(),
+                            document.getData().get("img").toString(),
+                            document.getData().get("likes").toString(),
+                            document.getData().get("title").toString(),
+                            listIngredient
                     ));
                 }
             }
         });
-        return recipe.get();
     }
 
-    public List<Seller> listSellers() {
+    /**
+     * Return list of sellers
+     */
+    public void listSellers(SellersCallback callback) {
         db.collection("seller")
             .get()
             .addOnCompleteListener(task -> {
@@ -95,10 +93,23 @@ public class FirebaseService {
                         );
                         this.sellers.add(seller);
                     }
+                    callback.onReceive(sellers);
                 } else {
                     Log.d(TAG, "Error getting sellers: ", task.getException());
                 }
             });
-        return this.sellers;
+    }
+
+    /**
+     * Callbacks after receive from firestore
+     */
+    public interface RecipesCallback{
+        void onReceive(List<Recipe> recipes);
+    }
+    public interface RecipeCallback{
+        void onReceive(Recipe recipe);
+    }
+    public interface SellersCallback{
+        void onReceive(List<Seller> sellers);
     }
 }
