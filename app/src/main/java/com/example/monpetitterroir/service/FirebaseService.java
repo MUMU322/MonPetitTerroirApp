@@ -29,17 +29,17 @@ public class FirebaseService {
                 if (task.isSuccessful()) {
                     List<Ingredient> listIngredient = new ArrayList<>();
                     for (DocumentChange document : task.getResult().getDocumentChanges()) {
-                        Ingredient i = new Ingredient(1, "carrote", "https://cdn1.fermedesaintemarthe.com/I-Autre-26000_1200x1200-carotte-amsterdam-2-ab.net.jpg");
+                        Ingredient i = new Ingredient("1", "carrote", "https://cdn1.fermedesaintemarthe.com/I-Autre-26000_1200x1200-carotte-amsterdam-2-ab.net.jpg");
                         listIngredient.add(i);
                         QueryDocumentSnapshot myDocument = document.getDocument();
-                        Recipe recipe = new Recipe(
+                        /*Recipe recipe = new Recipe(
                             document.getDocument().getId(),
                             myDocument.getData().get("img").toString(),
                             myDocument.getData().get("title").toString(),
                             Integer.parseInt(myDocument.getData().get("likes").toString()),
                             listIngredient
-                        );
-                        this.recipes.add(recipe);
+                        );*/
+                     //   this.recipes.add(recipe);
                     }
                 } else {
                     Log.d(TAG, "Error getting recipes: ", task.getException());
