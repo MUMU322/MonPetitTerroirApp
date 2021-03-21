@@ -17,11 +17,14 @@ import androidx.navigation.NavArgs;
 import com.bumptech.glide.Glide;
 import com.example.monpetitterroir.R;
 import com.example.monpetitterroir.databinding.FragmentRecetteBinding;
+import com.example.monpetitterroir.model.Ingredient;
 import com.example.monpetitterroir.model.Recipe;
 import com.example.monpetitterroir.model.RecipeService;
 import com.example.monpetitterroir.model.ServicesBuilder;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;

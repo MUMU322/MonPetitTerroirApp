@@ -12,11 +12,17 @@ interface RecipeService {
     /**
      * Liste des recettes par ingrédient
      */
-    @GET("/recipes/findByIngredients")
+   @GET("/recipes/findByIngredients")
     fun recipesList(
             @Query("apiKey") apiKey: String,
             @Query("ingredients") ingredients: String
     ): Call<List<Recipe>>
+
+   /* @GET("/recipes/findByIngredients")
+    fun recipesList(
+            @Query("apiKey") apiKey: String,
+            @Query("ingredients") ingredients: String
+    ): Call<List<Recette>>*/
 
     /**
      * Récupération de la recette par l'identifiant
@@ -30,11 +36,19 @@ interface RecipeService {
     /**
      * Liste des ingrédients pour une recette
      */
+   // @GET("/recipes/{id}/ingredientWidget.json")
+  /*  @GET("/recipes/{id}/ingredientWidget.json")
+    fun ingredientDetail(
+            @Path("id") id: String,
+            @Query("apiKey") apiKey: String
+    ): Call<Ingredient>*/
+
     @GET("/recipes/{id}/ingredientWidget.json")
     fun ingredientDetail(
             @Path("id") id: String,
             @Query("apiKey") apiKey: String
-    ): Call<Ingredient>
+    ): Call<ListIngredients>
+
 
     /**
      * Liste des instructions pour une recette

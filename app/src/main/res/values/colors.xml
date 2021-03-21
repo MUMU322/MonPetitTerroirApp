@@ -11,4 +11,6 @@
     <color name="whiteTranspMiddle">#66FFFFFF</color>
     <color name="blackTransp">#11000000</color>
     <color name="blackTranspMiddle">#66000000</color>
+    <color name="lightgrey">#c2c7cd</color>
+    <color name="red">#E41111</color>
 </resources>
