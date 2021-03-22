@@ -88,6 +88,9 @@ public class RecetteFragment extends Fragment {
                 TextView title = view.findViewById(R.id.titreRecette);
                 Glide.with(view).load(documentSnapshot.getData().get("srcPic")).into(img);
                 title.setText(""+documentSnapshot.getData().get("name"));
+                Log.i("TAG", "onComplete: é"+documentSnapshot.getData().get("listIngredients"));
+
+
             }
         });
 
