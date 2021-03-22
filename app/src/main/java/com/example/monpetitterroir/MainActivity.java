@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -34,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Si c'est son premier lancement, alors on redirige vers le SpashScreen
         boolean isFirstTime = sharedPref.getBoolean("isFirstTime", true);
-        if (isFirstTime) {
 
+        if (isFirstTime) {
             // On sauvegarde qu'il ai déjà fait son premier lancement
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putBoolean("isFirstTime", false);

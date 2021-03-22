@@ -2,7 +2,7 @@
     <!-- API Key : e94f7441d6e640bda8d8ba8f19242506 -->
     <!-- API Key 2 : dde3947a6bb840419819205772a9fc09 -->
     <string name="apiKey">dde3947a6bb840419819205772a9fc09</string>
-    <string name="app_name">MonPetitTerroir</string>
+    <string name="app_name">Mon Petit Terroir</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
@@ -11,4 +11,5 @@
     <string name="photo_recette">photoRecette</string>
     <string name="example_like">21</string>
     <string name="example_titre">titre</string>
+    <string name="lets_go">C\'est parti !</string>
 </resources>
