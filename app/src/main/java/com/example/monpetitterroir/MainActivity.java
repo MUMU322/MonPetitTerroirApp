@@ -1,6 +1,10 @@
 package com.example.monpetitterroir;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -25,6 +29,22 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+        // Récupération des préférences
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+
+        // Si c'est son premier lancement, alors on redirige vers le SpashScreen
+        boolean isFirstTime = sharedPref.getBoolean("isFirstTime", true);
+
+        if (isFirstTime) {
+            // On sauvegarde qu'il ai déjà fait son premier lancement
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putBoolean("isFirstTime", false);
+            editor.apply();
+
+            // Redirection vers l'activité
+            startActivity(new Intent(MainActivity.this, SplashScreenActivity.class));
+        }
     }
 
 }
