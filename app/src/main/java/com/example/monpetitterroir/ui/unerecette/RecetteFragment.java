@@ -24,7 +24,12 @@ import com.example.monpetitterroir.model.Recette;
 import com.example.monpetitterroir.model.Recipe;
 import com.example.monpetitterroir.model.RecipeService;
 import com.example.monpetitterroir.model.ServicesBuilder;
+import com.example.monpetitterroir.service.FirebaseService;
 import com.example.monpetitterroir.ui.home.ListeRecetteAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -67,8 +72,26 @@ public class RecetteFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Récupération de l'identifiant
-    /*    String id = getArguments().get("uid").toString();
+        String id = getArguments().get("uid").toString();
+        FirebaseService firebaseService=new FirebaseService();
+       // Recipe recipe = firebaseService.aRecipe(id);
+        //Log.e("TAG", "iddd : "+recipe);
 
+        FirebaseFirestore.getInstance().collection("recipes")
+                .document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot documentSnapshot=task.getResult();
+                documentSnapshot.getData();
+                Log.i("TAG", "ds: "+documentSnapshot.getData());
+                ImageView img = view.findViewById(R.id.imgRecette);
+                TextView title = view.findViewById(R.id.titreRecette);
+                Glide.with(view).load(documentSnapshot.getData().get("srcPic")).into(img);
+                title.setText(""+documentSnapshot.getData().get("name"));
+            }
+        });
+
+/*
         // Appel API pour récupérer la recette par son identifiant
         Call<Recipe> callRecette = ServicesBuilder.INSTANCE.buildService(RecipeService.class)
                 .recipeDetail(id, getString(R.string.apiKey));

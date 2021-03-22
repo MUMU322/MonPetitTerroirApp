@@ -3,13 +3,18 @@ package com.example.monpetitterroir.service;
 import android.util.Log;
 import android.widget.Adapter;
 
+import androidx.annotation.NonNull;
+
 import com.example.monpetitterroir.MainActivity;
 import com.example.monpetitterroir.model.Ingredient;
 import com.example.monpetitterroir.model.Recipe;
 import com.example.monpetitterroir.model.Seller;
 import com.example.monpetitterroir.ui.home.ListeRecetteAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.model.Document;
@@ -47,7 +52,9 @@ public class FirebaseService {
                             listIngredient
                         );*/
                         Log.i("TAG", "listRecipes: "+"here 123");
-                        Recipe recipe=new Recipe(myDocument.getData().get("srcPic").toString(),
+                        Recipe recipe=new Recipe(
+                                myDocument.getId(),
+                                myDocument.getData().get("srcPic").toString(),
                                 myDocument.getData().get("name").toString());
                         Log.i("TAG", "listRecipes: "+recipe);
                         this.recipes.add(recipe);
@@ -84,4 +91,55 @@ public class FirebaseService {
                 });
         return this.sellers;
     }
+
+
+    public Recipe aRecipe( String uid) {
+
+        final Recipe recipe = null;
+        final List<Recipe> list=new ArrayList<>();
+
+        db.collection("recipes")
+                .document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot documentSnapshot=task.getResult();
+                documentSnapshot.getData();
+                Log.i("TAG", "ds: "+documentSnapshot.getData());
+                list.add(new Recipe(
+                        uid,
+                       ""+ documentSnapshot.getData().get("name"),
+                       ""+ documentSnapshot.getData().get("srcPic")
+                ));
+            }
+        });
+
+        return list.get(0);
+
+
+    }
+
+
+/*
+    public List<Ingredient> listIngredients(List<String> listIngredients) {
+        db.collection("ingredients")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (DocumentChange document : task.getResult().getDocumentChanges()) {
+                            QueryDocumentSnapshot myDocument = document.getDocument();
+                            Seller seller = new Seller(
+                                    document.getDocument().getId(),
+                                    myDocument.get("name").toString(),
+                                    myDocument.get("city").toString(),
+                                    myDocument.get("cp").toString()
+                            );
+                            this.sellers.add(seller);
+                        }
+                    } else {
+                        Log.d(TAG, "Error getting sellers: ", task.getException());
+                    }
+                });
+        return this.sellers;
+
+    }*/
 }
