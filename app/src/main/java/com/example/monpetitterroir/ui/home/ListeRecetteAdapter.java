@@ -61,7 +61,7 @@ public class ListeRecetteAdapter extends RecyclerView.Adapter<ListeRecetteAdapte
             // Lors d'un clique sur la recette
             holder.itemView.setOnClickListener(v -> {
                   Bundle bundle = new Bundle();
-                  bundle.putString("uid", String.valueOf(myRecette.getId()));
+             //     bundle.putString("uid", String.valueOf(myRecette.getId()));
 //                Navigation.createNavigateOnClickListener(R.id.action_navigation_home_to_recetteFragment, bundle);
 
 //                ConfirmationAction action =

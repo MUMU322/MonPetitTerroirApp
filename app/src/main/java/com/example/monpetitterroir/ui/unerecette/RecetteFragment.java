@@ -72,6 +72,7 @@ public class RecetteFragment extends Fragment {
         // Appel API pour récupérer la recette par son identifiant
         Call<Recipe> callRecette = ServicesBuilder.INSTANCE.buildService(RecipeService.class)
                 .recipeDetail(id, getString(R.string.apiKey));
+        Log.e("TAG", "onViewCreated: "+"HERE");
         callRecette.enqueue(new Callback<Recipe>(){
             @Override
             public void onResponse(@NotNull Call<Recipe> call, @NotNull Response<Recipe> response) {
