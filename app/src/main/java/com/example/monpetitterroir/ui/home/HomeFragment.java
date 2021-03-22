@@ -52,8 +52,8 @@ public class HomeFragment extends Fragment {
         // Récupération de la liste des recettes
 
         FirebaseService firebaseService=new FirebaseService();
-        Log.e("TAG", "onCreateView: "+firebaseService.listRecipes());
-       // myAdapter.refreshList(firebaseService.listRecipes());
+        //Log.e("TAG", "onCreateView: "+firebaseService.listRecipes());
+        myAdapter.refreshList(firebaseService.listRecipes(myAdapter));
 
 
         Call callRecette = ServicesBuilder.INSTANCE.buildService(RecipeService.class).recipesList(getString(R.string.apiKey),"apples");
@@ -64,7 +64,7 @@ public class HomeFragment extends Fragment {
                                     List<Recipe> maList = response.body();
                                     if (maList != null) {
                                        Log.i("MICHutrè(dèuEL", response.body().toString());
-                                        myAdapter.refreshList(maList);
+                                      //  myAdapter.refreshList(maList);
                                     }
                                 }
 

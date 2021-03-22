@@ -67,7 +67,7 @@ public class RecetteFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Récupération de l'identifiant
-        String id = getArguments().get("uid").toString();
+    /*    String id = getArguments().get("uid").toString();
 
         // Appel API pour récupérer la recette par son identifiant
         Call<Recipe> callRecette = ServicesBuilder.INSTANCE.buildService(RecipeService.class)
@@ -101,6 +101,6 @@ public class RecetteFragment extends Fragment {
             public void onFailure(@NotNull Call<ListIngredients> call, @NotNull Throwable t) {
                 Log.d("magasin", "onFailure: ");
             }
-        });
+        });*/
     }
 }

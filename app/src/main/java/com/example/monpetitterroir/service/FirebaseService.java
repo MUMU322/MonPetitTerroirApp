@@ -1,11 +1,13 @@
 package com.example.monpetitterroir.service;
 
 import android.util.Log;
+import android.widget.Adapter;
 
 import com.example.monpetitterroir.MainActivity;
 import com.example.monpetitterroir.model.Ingredient;
 import com.example.monpetitterroir.model.Recipe;
 import com.example.monpetitterroir.model.Seller;
+import com.example.monpetitterroir.ui.home.ListeRecetteAdapter;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -24,7 +26,7 @@ public class FirebaseService {
     public List<Recipe> recipes = new ArrayList<>();
     public List<Seller> sellers = new ArrayList<>();
 
-    public List<Recipe> listRecipes() {
+    public List<Recipe> listRecipes( ListeRecetteAdapter myAdapter) {
 
 
         db.collection("recipes")
@@ -47,12 +49,17 @@ public class FirebaseService {
                         Log.i("TAG", "listRecipes: "+"here 123");
                         Recipe recipe=new Recipe(myDocument.getData().get("srcPic").toString(),
                                 myDocument.getData().get("name").toString());
+                        Log.i("TAG", "listRecipes: "+recipe);
                         this.recipes.add(recipe);
+                        myAdapter.refreshList(this.recipes);
                     }
                 } else {
                     Log.d(TAG, "Error getting recipes: ", task.getException());
                 }
         });
+
+        Log.e("TAG", "HERE: "+this.recipes );
+        myAdapter.refreshList(this.recipes);
         return this.recipes;
     }
 
