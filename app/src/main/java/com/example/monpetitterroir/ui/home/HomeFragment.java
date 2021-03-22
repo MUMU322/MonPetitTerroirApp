@@ -16,6 +16,7 @@ import com.example.monpetitterroir.databinding.FragmentHomeBinding;
 import com.example.monpetitterroir.model.Recipe;
 import com.example.monpetitterroir.model.RecipeService;
 import com.example.monpetitterroir.model.ServicesBuilder;
+import com.example.monpetitterroir.service.FirebaseService;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -50,6 +51,11 @@ public class HomeFragment extends Fragment {
 
         // Récupération de la liste des recettes
 
+        FirebaseService firebaseService=new FirebaseService();
+        //Log.e("TAG", "onCreateView: "+firebaseService.listRecipes());
+        myAdapter.refreshList(firebaseService.listRecipes(myAdapter));
+
+
         Call callRecette = ServicesBuilder.INSTANCE.buildService(RecipeService.class).recipesList(getString(R.string.apiKey),"apples");
 
         callRecette.enqueue(new Callback<List<Recipe>>(){
@@ -57,8 +63,8 @@ public class HomeFragment extends Fragment {
                                 public void onResponse(@NotNull Call<List<Recipe>> call, @NotNull Response<List<Recipe>> response) {
                                     List<Recipe> maList = response.body();
                                     if (maList != null) {
-                                        Log.i("MICHEL", response.body().toString());
-                                        myAdapter.refreshList(maList);
+                                       Log.i("MICHutrè(dèuEL", response.body().toString());
+                                      //  myAdapter.refreshList(maList);
                                     }
                                 }
 

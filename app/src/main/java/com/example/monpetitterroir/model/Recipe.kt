@@ -11,12 +11,15 @@ import retrofit2.http.Url
  * @param usedIngredients ingredients from the search, used in the recipe
  * @param missedIngredients list of ingredients not in the search, used in the recipe
  */
-data class Recipe(
-        @StringRes val id: Int,
+
+
+data class Recipe (
+        //@StringRes val id: Int,
+        @StringRes val id: String,
         @Url val image: String,
         val title: String,
-        val likes: Int,
-        val usedIngredients: List<Ingredient>,
-        val missedIngredients : List<Ingredient>
+  //      val likes: Int,
+     //   val usedIngredients: List<Ingredient>,
+    //    val missedIngredients : List<Ingredient>
 ) {
 }
